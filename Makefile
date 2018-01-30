@@ -1,5 +1,5 @@
 
-FILES = main
+FILES = main net
 
 PORT=/tmp/usb-port
 
