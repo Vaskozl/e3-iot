@@ -1,12 +1,14 @@
-MAKEFLAGS += --silent
 
-FILES = main.py
+FILES = main
 
 PORT=/tmp/usb-port
 
+
+all: $(FILES) reset screen
+
 $(PORT):
 	ls /dev/tty* > /tmp/1; \
-	echo "Detecting USB port, plug your controller now.\c"; \
+	echo "Detecting USB port, plug or unplug your controller now.\c"; \
 	while [ -z $$USB ]; do \
 		sleep 1; \
 		echo ".\c"; \
@@ -15,21 +17,20 @@ $(PORT):
 	done; \
 	echo ""; \
 	echo "Detected controller on USB port at $$USB"; \
+	sleep 1; \
 	echo $$USB > $(PORT);
-	sleep 1;
 
-%.py: $(PORT)
+$(FILES): $(PORT) 
 		echo "Uploading $@"; \
-		ampy --port `cat $(PORT)` put $@;
+		ampy --port `cat $(PORT)` put $@.py;
 	
-all: $(FILES)
 
 screen: $(PORT)
 	screen `cat $(PORT)` 115200
 
-reset: $(PORT)
-		echo "Reseting" \
-		ampy --port `cat $(PORT)` reset
-
 clean:
 	if [ -f $(PORT) ]; then rm $(PORT); fi
+
+reset:
+		echo "Reseting"; \
+		ampy --port `cat $(PORT)` reset;
