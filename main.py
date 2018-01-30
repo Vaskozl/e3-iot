@@ -26,4 +26,3 @@ while proxReady != 0 :
     proxRead = int.from_bytes(command_reg_data, 'big') & (1 << 5)
     print("Polled")
 
->>>>>>> 1dba9a5... main.py: Set up communication to board and sensor
