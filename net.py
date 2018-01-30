@@ -20,7 +20,7 @@ def wpa_init():
 #
 
 BROKER_ADDRESS = '192.168.0.10'
-MESSAGE_TOPIC = 'esys/just_another_group/ambient'
+TOPIC_PREFIX = 'esys/just_another_group'
 
 def mqtt_init():
     client = MQTTClient(machine.unique_id(), BROKER_ADDRESS)
@@ -30,6 +30,7 @@ def mqtt_publish(topic, data):
     if ( topic != "ambient" or topic != "distance" ):
         print("Invalid topic, not publishing")
     else:
+        topic = TOPIC_PREFIX + topic
         client.publish(topic, bytes(data, 'utf-8'))
 
 
