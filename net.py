@@ -11,7 +11,7 @@ def wpa_init():
     ap_if.active(False)
     
     # Connect to Test AP
-    sta_if = network.WLAN(network.AP_IF)
+    sta_if = network.WLAN(network.STA_IF)
     sta_if.active(True)
     sta_if.connect('EEERover', 'exhibition')
 
