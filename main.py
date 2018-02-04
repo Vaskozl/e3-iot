@@ -3,7 +3,7 @@
 # Import the necessary modules
 from micropython import const
 from machine import Pin, I2C
-from VCNL4010 import Sensor
+from VCNL4010 import ProxAndAlsSensor
 import time
 
 SCL_PIN = const(5)
@@ -14,13 +14,14 @@ SDA_FREQ = const(3400 * 1000)
 i2cport = I2C(scl=Pin(SCL_PIN), sda=Pin(SDA_PIN), freq=SDA_FREQ)
 
 #IR sensor config
-prox_and_als_sensor = Sensor(i2cport, selftimed=True, prox_en=True)
+prox_and_als_sensor = ProxAndAlsSensor(i2cport, als_od=True)
 
 #Poll for proximity data
 while True:
-    proxData = Sensor.DATA_NOT_READY
-    while proxData == Sensor.DATA_NOT_READY :
-        proxData = prox_and_als_sensor.read_prox()
+    proxData = ProxAndAlsSensor.DATA_NOT_READY
+    while proxData == ProxAndAlsSensor.DATA_NOT_READY :
+        alsData = prox_and_als_sensor.read_als()
 
-    print(proxData)
+    print("Als:")
+    print(alsData)
     time.sleep_ms(20)
