@@ -19,7 +19,7 @@ class ProxAndAlsSensor:
         instructionBuffer = bytearray([__COMMAND_REG_ADDR, self.config])
         i2cport.writeto(__SENSOR_ADDR, instructionBuffer)
         if prox_en | als_en :
-            self.config = self.config | prox_en << 1 | prox_en << 2
+            self.config = self.config | prox_en << 1 | als_en << 2
             instructionBuffer[1] = self.config
             i2cport.writeto(__SENSOR_ADDR, instructionBuffer);
 
@@ -44,7 +44,6 @@ class ProxAndAlsSensor:
     def read_als(self):
         self.i2cport.writeto(__SENSOR_ADDR, bytearray([__COMMAND_REG_ADDR]))
         command_reg_data = self.i2cport.readfrom(__SENSOR_ADDR, 1)
-        print(command_reg_data)
         dataReady = int.from_bytes(command_reg_data, 'big') & (1 << 6)
         if dataReady == 0:
             polling = int.from_bytes(command_reg_data, 'big') & (1 << 2)
