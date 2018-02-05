@@ -25,19 +25,18 @@ def wpa_init():
 # Connect to MQTT broker on the network 
 #
 
-BROKER_ADDRESS = '192.168.0.10'
-TOPIC_PREFIX = 'esys/just_another_group'
-
-def mqtt_init():
-    client = MQTTClient(machine.unique_id(), BROKER_ADDRESS)
-    client.connect()
-
-def mqtt_publish(topic, data):
-    if ( topic != "ambient" or topic != "distance" ):
-        print("Invalid topic, not publishing")
-    else:
-        topic = TOPIC_PREFIX + topic
-        client.publish(topic, bytes(data, 'utf-8'))
+class Mqtt(MQTTClient):
+    def __init__(self, broker_address, topic_prefix):
+        MQTTClient.__init__(self, machine.unique_id(), broker_address)
+        print('machine_id:', machine.unique_id())
+        print("Attempting to connect to broker");
+        self.prefix = topic_prefix
+    def send(self, sensor, value):
+        if ( sensor != "ambient" and sensor != "proximity" ):
+            print("Invalid topic, not publishing")
+        else:
+            topic = self.prefix + sensor
+            MQTTClient.publish(self, topic, value)
 
 
 
