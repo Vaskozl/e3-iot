@@ -1,5 +1,6 @@
 from umqtt.simple import MQTTClient
 import network
+import machine
 
 #
 # Connect to test Wireless access Point 
@@ -13,7 +14,12 @@ def wpa_init():
     # Connect to Test AP
     sta_if = network.WLAN(network.STA_IF)
     sta_if.active(True)
-    sta_if.connect('EEERover', 'exhibition')
+    if not sta_if.isconnected():
+        print('Attempting to authenticate with wireless network...')
+        sta_if.connect('EEERover', 'exhibition')
+        while not sta_if.isconnected():
+            pass
+    print('Connected to WiFi:', sta_if.ifconfig())
 
 #
 # Connect to MQTT broker on the network 
