@@ -1,5 +1,5 @@
 
-FILES = main net
+FILES = main VCNL4010 net
 
 PORT=/tmp/usb-port
 
