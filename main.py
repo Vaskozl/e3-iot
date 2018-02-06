@@ -14,14 +14,14 @@ SDA_FREQ = const(3400 * 1000)
 i2cport = I2C(scl=Pin(SCL_PIN), sda=Pin(SDA_PIN), freq=SDA_FREQ)
 
 #IR sensor config
-prox_and_als_sensor = ProxAndAlsSensor(i2cport, als_od=True)
+prox_and_als_sensor = ProxAndAlsSensor(i2cport, prox_od=True)
 
 #Poll for proximity data
 while True:
     proxData = ProxAndAlsSensor.DATA_NOT_READY
     while proxData == ProxAndAlsSensor.DATA_NOT_READY :
-        alsData = prox_and_als_sensor.read_als()
+        proxData = prox_and_als_sensor.read_prox()
 
-    print("Als:")
-    print(alsData)
+    print("proxData:")
+    print(proxData)
     time.sleep_ms(20)
