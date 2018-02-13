@@ -1,6 +1,6 @@
 from umqtt.simple import MQTTClient
 import network
-import machine
+import ujson
 
 #
 # Connect to test Wireless access Point 
@@ -27,16 +27,16 @@ def wpa_init():
 
 class Mqtt(MQTTClient):
     def __init__(self, broker_address, topic_prefix):
-        MQTTClient.__init__(self, machine.unique_id(), broker_address)
-        print('machine_id:', machine.unique_id())
+        MQTTClient.__init__(self, 'ee3-smartbox', broker_address)
         print("Attempting to connect to broker");
         self.prefix = topic_prefix
-    def send(self, sensor, value):
-        if ( sensor != "ambient" and sensor != "proximity" ):
-            print("Invalid topic, not publishing")
+    def send(self, event, mail_count):
+        if ( event != "NEW" and event != "DOOR" ):
+            print("Invalid event, not publishing")
         else:
-            topic = self.prefix + sensor
-            MQTTClient.publish(self, topic, value)
+            print("Sending message");
+            message = { "event": event, "mail_count": mail_count }
+            MQTTClient.publish(self, self.prefix, ujson.dumps(message))
 
 
 
