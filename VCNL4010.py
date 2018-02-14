@@ -35,8 +35,8 @@ class VCNL4010_sensor:
 
     # The VCNL4010 poximity readings correspond to how close the object is from the sensor. This means the closer the object is to the device,
     # the larger the result that the sensor returs. 
-    PROX_THRESHOLD_HIGH = const(0x09)   # Threshold to decide whether the postbox flap is close (closed) or far (open) from the sensor - high byte
-    PROX_THRESHOLD_LOW = const(0x06)    #                                                                                              - low byte
+    PROX_THRESHOLD_HIGH = const(0x08)   # Threshold to decide whether the postbox flap is close (closed) or far (open) from the sensor - high byte
+    PROX_THRESHOLD_LOW = const(0xF1)    #                                                                                              - low byte
 
     # Methods:
 
