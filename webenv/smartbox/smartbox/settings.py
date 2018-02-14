@@ -70,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'smartbox.wsgi.application'
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

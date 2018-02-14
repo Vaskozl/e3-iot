@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Sensor, DeliveredPost, MailCollected
+from .models import MailBox, DeliveredPost, MailCollected
 
-admin.site.register(Sensor)
+admin.site.register(MailBox)
 admin.site.register(DeliveredPost)
 admin.site.register(MailCollected)
-# Register your models here.

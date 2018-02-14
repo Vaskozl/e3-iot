@@ -31,17 +31,6 @@
           <i class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#download">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#features">Technical</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Buy Now</a>
-            </li>
-          </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarResponsive">
         </div>
@@ -52,13 +41,13 @@
       <div class="container h-100">
         <div class="row h-100">
             <div class="col-lg-12 my-auto">
-                <p style="align-content: center">Enter the sensor ID found on the base of your Smart Box</p>
+                <p style="align-content: center">Enter the serial ID found on the base of your Smart Box</p>
                 <div class="col-lg-6">
                     <form class="form-inline" action="{% url 'data' %}" method="post">
                         {% csrf_token %}
                         <div class="form-group mx-sm-3 mb-2">
-                            <label for="sensorID" class="sr-only">Sensor ID</label>
-                            <input type="number" class="form-control" name="sensorID" id="sensorID" placeholder="Sensor ID">
+                            <label for="sensorID" class="sr-only">Serial ID</label>
+                            <input type="number" class="form-control" name="serialID" id="serialID" placeholder="Serial ID">
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Go!</button>
                     </form>
