@@ -23,10 +23,10 @@ SCL_PIN_als = const(13)         # D7: I2C Clock Pin for the VCNL4010 used as Amb
 INT_PROX = const(14)            # D5: Interrupt Pin for Proximity Sensor
 LED_PIN = const(16)             # D0: LED Pin
 
-# Define Device constants
+# Define Device Constants
 SDA_FREQ = const(3400 * 1000) # VCNL4010 I2C clock rate range: 3400 kHz
 
-# Define Motor position constants
+# Define Motor Position Constants
 DOOR_CLOSED = const(120) # PWM Duty Cycle for servomotor corresponding to a closed door
 DOOR_OPEN = const (75) # PWM Duty Cycle for servomotor corresponding to an open door
 
@@ -41,15 +41,15 @@ button_pressed = 0            # button_pressed = 1 when button was pressed, butt
 door_position = 0             # door position: closed = 0, open = 1
 mail_count = 0                # counter for how many mail have been received since last door open
 
-# Connet ot wifi
-wpa_init()
+# Connect To Wifi
+wpa_init() # Initiate WPA
 
 def sub_cb(topic, msg):
     global button_pressed;
     print("Phone input recvd");
     button_pressed = 1;
 
-# Init mqtt
+# Initiate MQTT
 mqtt = Mqtt(BROKER_ADDRESS, MQTT_TOPIC)
 mqtt.set_callback(sub_cb)
 mqtt.connect()
@@ -71,7 +71,7 @@ button_int_pin = Pin(BUT_IN, Pin.IN, Pin.PULL_UP) # pin used for detecting a but
 led = Pin(LED_PIN, Pin.OUT)
 led.value(False) # turn LED initially off
 
-# Set up the pin controlling the servomotor position
+# Set up the pin controlling the servo motor position
 # Servomotor position can be changed by altering the duty cycle of a PWM signal (Duty cycle: all off = 0, all on = 1023)
 # Servomotor can turn 180 degrees (PWM-duty-cycle-range: 30 - 122)
 motor_position = DOOR_CLOSED # starting door position (closed)
@@ -132,7 +132,7 @@ while True:
 
             print("New post")
             mail_count += 1
-            mqtt.send('delivery', mail_count)                 # Send MQTT notificaiton for new mail
+            mqtt.send('delivery', mail_count)            # Send MQTT notificaiton for new mail
             prox_sensor.interrupt_reset()                # reset interrupt status register
 
         else:                                            # flap was open and got closed long enough
@@ -173,7 +173,7 @@ while True:
             enable_irq(state)                            # reenable interrupt requests
 
             door_position = 1                            # indicate that the door is open now
-            mqtt.send('collection', mail_count)                # send a DOOR event to indicate it is open
+            mqtt.send('collection', mail_count)          # send a DOOR event to indicate it is open
             mail_count = 0                               # reset mail count when door is closed
 
         else:                                            # if door is open
@@ -191,5 +191,5 @@ while True:
 
             door_position = 0                            # indicate that the door is open now
 
-    mqtt.check_msg()
+    mqtt.check_msg()                                     # checks if anything has been sent
     time.sleep_ms(20)
