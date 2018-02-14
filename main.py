@@ -3,10 +3,15 @@
 # Glossary: als = Ambient Light Sensor, prox = Proximity Sensor
 
 # Import the necessary modules
+from net import *
 from micropython import const
 from machine import Pin, I2C, disable_irq, enable_irq, PWM
 from VCNL4010 import VCNL4010_sensor
 import time
+
+# Define MQTT settings
+BROKER_ADDRESS = '192.168.0.10'
+MQTT_TOPIC = 'esys/VKPD/'
 
 # Define Pin Layout
 BUT_IN = const(0)               # D3: Button Pin
@@ -22,8 +27,11 @@ LED_PIN = const(16)             # D0: LED Pin
 SDA_FREQ = const(3400 * 1000) # VCNL4010 I2C clock rate range: 3400 kHz
 
 # Define Motor position constants
-DOOR_CLOSED = const(30) # PWM Duty Cycle for servomotor corresponding to a closed door
-DOOR_OPEN = const (118) # PWM Duty Cycle for servomotor corresponding to an open door
+DOOR_CLOSED = const(120) # PWM Duty Cycle for servomotor corresponding to a closed door
+DOOR_OPEN = const (75) # PWM Duty Cycle for servomotor corresponding to an open door
+
+# Define the Ambient Light Sensor Threshold (a measurement smaller than this will turn the LED on when the door is open)
+ALS_THRESHOLD = const(60)
 
 # Define State Variables
 flap_position = 0             # flap_position = 0 when flap is closed, flap_position = 1 when flap is open
@@ -31,6 +39,21 @@ change_in_flap_position = 0   # change_in_flap_position = 1 when flap position c
 closed_flap_counter = 0       # count is incremented when the device detects the flap to be closed
 button_pressed = 0            # button_pressed = 1 when button was pressed, button_pressed = 0 after the program handled the press 
 door_position = 0             # door position: closed = 0, open = 1
+mail_count = 0                # counter for how many mail have been received since last door open
+
+# Connet ot wifi
+wpa_init()
+
+def sub_cb(topic, msg):
+    global button_pressed;
+    print("Phone input recvd");
+    button_pressed = 1;
+
+# Init mqtt
+mqtt = Mqtt(BROKER_ADDRESS, MQTT_TOPIC)
+mqtt.set_callback(sub_cb)
+mqtt.connect()
+mqtt.subscribe("esys/VKPD/1742")
 
 # Create the I2C ports
 i2cport_prox = I2C(scl=Pin(SCL_PIN_prox), sda=Pin(SDA_PIN_prox), freq=SDA_FREQ)
@@ -108,6 +131,8 @@ while True:
             enable_irq(state)                            # reenable interrupt requests
 
             print("New post")
+            mail_count += 1
+            mqtt.send('delivery', mail_count)                 # Send MQTT notificaiton for new mail
             prox_sensor.interrupt_reset()                # reset interrupt status register
 
         else:                                            # flap was open and got closed long enough
@@ -135,12 +160,12 @@ while True:
 
             print("alsData:")
             print(alsData)
-            if alsData < 200:                            # if it is too dark, light up LED
+            if alsData < ALS_THRESHOLD:                  # if it is too dark, light up LED
                 led.value(True)
 
-            while motor_position < DOOR_OPEN:            # open the door with the servomotor slowly
+            while motor_position > DOOR_OPEN:            # open the door with the servomotor slowly
                 servo.duty(motor_position)
-                motor_position += 1
+                motor_position -= 1
                 time.sleep_ms(20)
 
             state=disable_irq()                          # disable interrupt requests to avoid concurrent access on shared objects
@@ -148,12 +173,14 @@ while True:
             enable_irq(state)                            # reenable interrupt requests
 
             door_position = 1                            # indicate that the door is open now
+            mqtt.send('collection', mail_count)                # send a DOOR event to indicate it is open
+            mail_count = 0                               # reset mail count when door is closed
 
         else:                                            # if door is open
 
-            while motor_position > DOOR_CLOSED:          # close door with the servomotor slowly
+            while motor_position < DOOR_CLOSED:          # close door with the servomotor slowly
                 servo.duty(motor_position)
-                motor_position -= 1
+                motor_position += 1
                 time.sleep_ms(20)
 
             led.value(False)                             # turn off LED anyways
@@ -164,4 +191,5 @@ while True:
 
             door_position = 0                            # indicate that the door is open now
 
+    mqtt.check_msg()
     time.sleep_ms(20)
