@@ -1,3 +1,5 @@
+# net.py: Implementation of the wireless functionalities
+
 from umqtt.simple import MQTTClient
 import network
 import ujson
