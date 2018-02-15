@@ -9,6 +9,9 @@ from machine import Pin, I2C, disable_irq, enable_irq, PWM
 from VCNL4010 import VCNL4010_sensor
 import time
 
+# Serial Number of device
+SERIAL_NUM = '1742'
+
 # Define MQTT settings
 BROKER_ADDRESS = '192.168.0.10'
 MQTT_TOPIC = 'esys/VKPD/'
@@ -44,16 +47,17 @@ mail_count = 0                # counter for how many mail have been received sin
 # Connect To Wifi
 wpa_init() # Initiate WPA
 
-def sub_cb(topic, msg):
+# This sub emulates a button press when an MQTT request to open door is sent
+def dbut_cb(topic, msg):
     global button_pressed;
-    print("Phone input recvd");
+    print("Digital button press received");
     button_pressed = 1;
 
 # Initiate MQTT
-mqtt = Mqtt(BROKER_ADDRESS, MQTT_TOPIC)
-mqtt.set_callback(sub_cb)
+mqtt = Mqtt(BROKER_ADDRESS, MQTT_TOPIC, SERIAL_NUM)
+mqtt.set_callback(dbut_cb)
 mqtt.connect()
-mqtt.subscribe("esys/VKPD/1742")
+mqtt.subscribe("esys/VKPD/"+SERIAL_NUM)
 
 # Create the I2C ports
 i2cport_prox = I2C(scl=Pin(SCL_PIN_prox), sda=Pin(SDA_PIN_prox), freq=SDA_FREQ)
