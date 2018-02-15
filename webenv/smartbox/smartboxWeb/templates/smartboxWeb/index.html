@@ -54,8 +54,12 @@
               <a class="nav-link js-scroll-trigger" href="#technical">Technical</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#Team">Team</a>
+              <a class="nav-link js-scroll-trigger" href="#team">Team</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#future">Future</a>
+            </li>
+
           </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -276,30 +280,36 @@ This is achieved by the ambient light measuring functionality of the VCNL4010 se
           <hr>
         </div>
         <div class="row">
-		<center>
-          <div class="col-lg-12 my-auto">
+          <div class="col-lg-7 my-auto">
             <div class="container-fluid">
               <div class="row" style="font-size:22px;text-align:left">
 		<ul>
-			<li>Sensors used: VCNL4010 2x one for sensing proximity, one for sensing ambient light </li>
-			  <li>Sensor limitations: distance max 20 cm and 16000 lux, I2C communication with the processing unit </li>
+			<li>Two VCNL4010 sensors are utilised:</li>
+			<ul><li>one for ambient light sensing</li><li>one for proximity measurement</li></ul>
+			<li>Sensor limitations: max. 20 cm distance and 16000 lux</li>
+			  <li>I2C communication with the processing unit </li>
 		      	  <li>Functions implemented using the ESP8266 board, interfaced through the NodeMCU board </li>
 		      	  <li>Size:  H: 32 cm x W: 22 cm x D: 8 cm </li>
 		      	  <li>Weight: 1.6 kg </li>
 		      	  <li>Door opens with Tower pro SG92R servo motor </li>
 		      	  <li>Lamp: Power saving LED panel </li>
-		      	  <li>Solar charger unit: Panneau Solaire Energy Board </li>
+		      	  <li>Solar charger unit</li>
 		</ul>
               </div>
             </div>
-		</center>
           </div>
+          <div class="col-lg-5 my-auto">
+            <div class="container-fluid">
+                    <img src="{% static "img/tech.png" %}" class="img-fluid" alt="">
+	    </div>
+          </div>
+
 
         </div>
       </div>
     </section>
 
-    <section class="features" id="technical">
+    <section class="features" id="team">
       <div class="container">
         <div class="section-heading text-center">
           <h2>Our Team</h2>
@@ -353,6 +363,20 @@ Our team consists of three electrical engineers and a computer scientist. By put
             </div>
 		</center>
           </div>
+
+
+
+
+    <section class="features" id="future">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>The Future</h2>
+	  <div style="font-size:22px;text-align:justify">
+Developing a smart postbox gives rise to lots of new opportunities with traditional post services. We are planning to implement several new features in the future editions of the device. By measuring the weight of the letters, we could give more information about the returned content. Little slips could be marked as spam for example. The next level would be to scan the letters for name and address, and classify the unwanted adverts as spam. The user would have online access to the contents of the box. The implementation of advanced locking/unlocking systems could later lead to a solution to home-deliveries, even with the online monitoring of the couriers.
+	</div>
+	</div>
+	</div>
+	</div>
 
         </div>
       </div>
