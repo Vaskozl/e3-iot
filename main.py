@@ -57,6 +57,7 @@ def dbut_cb(topic, msg):
 mqtt = Mqtt(BROKER_ADDRESS, MQTT_TOPIC, SERIAL_NUM)
 mqtt.set_callback(dbut_cb)
 mqtt.connect()
+# Listen for door open requests with only our SERIAL num
 mqtt.subscribe("esys/VKPD/"+SERIAL_NUM)
 
 # Create the I2C ports
