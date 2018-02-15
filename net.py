@@ -17,7 +17,7 @@ def wpa_init():
     if not sta_if.isconnected():                                     # check if already connected
         print('Attempting to authenticate with wireless network...') 
         sta_if.connect('EEERover', 'exhibition')                     # if not connect to EEERover network
-        while not sta_if.isconnected():                              # Hang around untill we establish a connection
+        while not sta_if.isconnected():                              # Hang around until we establish a connection
             pass 
     print('Connected to WiFi:', sta_if.ifconfig())
 
@@ -25,7 +25,7 @@ def wpa_init():
 # Connect to MQTT broker on the network 
 #
 
-# We make an Mqtt class which wraps MQTTClient to simplify main.py calls
+# Make an Mqtt class which wraps MQTTClient to simplify main.py calls
 
 class Mqtt(MQTTClient):
     def __init__(self, broker_address, topic_prefix, serial_num):
