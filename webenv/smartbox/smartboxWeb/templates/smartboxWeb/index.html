@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Smart Box</title>
+    <title>SmartBox</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{% static "device-mockups/device-mockups.min.css" %}">
 
     <!-- Custom styles for this template -->
-    <link href="{% static "css/new-age.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/new-age.css" %}" rel="stylesheet">
 
   </head>
 
@@ -34,7 +34,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Smart Box</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">SmartBox</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -42,14 +42,24 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#download">Features</a>
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#features">Technical</a>
+              <a class="nav-link js-scroll-trigger" href="#buy">Buy Now</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Buy Now</a>
+              <a class="nav-link js-scroll-trigger" href="#features">Features</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#technical">Technical</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#future">Future</a>
+            </li>
+
           </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -67,24 +77,78 @@
         <div class="row h-100">
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
-              <h1 class="mb-5">Smart Box is the mail box of the future. Never miss your mail</h1>
+              <h1 class="mb-5"> SmartBox is the modern way to get your old-fashioned paper mail. Never miss your important letters again! Smartbox will let you know immediately when there is new mail! 
+	      </h1>
             </div>
           </div>
           <div class="col-lg-5 my-auto">
-            <div class="device-container">
-              <div class="device-mockup iphone6_plus portrait white">
-                <div class="device">
-                  <div class="screen">
                     <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                    <img src="{% static "img/demo-screen-1.jpg" %}" class="img-fluid" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
+                    <img src="{% static "img/Box_frontal_veryclose.jpg" %}" class="img-fluid" alt="">
           </div>
         </div>
       </div>
     </header>
+
+    <section class="features" id="about">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>What is it all about?</h2>
+          <hr>
+        </div>
+
+	<div style="font-size:26px">
+	  <center>
+	       You do not need to make everything smarter, but sometimes it just makes so much sense.
+	       <br>
+	       <br>
+	  </center>
+	</div>
+        <div class="row">
+          <div class="col-lg-4 my-auto">
+		  <center>
+                    <img src="{% static "img/postman.png" %}" class="img-fluid" alt="">
+		  </center>
+
+          </div>
+          <div class="col-lg-8 my-auto">
+            <div class="container-fluid">
+              <div class="row" style="font-size:22px;text-align:justify">
+                
+               The internet brought big changes in the way we communicate with each other. Do you remember the last time you sent a mail (an actual, not an e-mail)? Me neither. 
+               I guess, you check your bank account online? Yes, that’s you. You absolutely hate unaddressed advertising and so you keep it away from your postbox.
+               In the end, you almost never receive any post and eventually just stop checking your postbox, because you think there is really no point. But then it happens. Your friend from college sends you an invitation for his wedding. It stays unread in the postbox and you just miss the event. Your friend is mad and you are thinking: 
+              </div>
+            </div>
+          </div>
+
+        </div>
+	<p>
+	<br> 
+	<div style="font-size:28px">
+	  <center>
+	       “Why did I not check my mails?”
+	  </center>
+	</div>
+	</p>
+	<p>
+	<div style="font-size:22px">
+        No worries, we are here to help. Introducing SmartBox, the ideal solution to your problem.
+         We developed a mailbox for the 21st century, that does not only simply look good, but also helps you to make your life simpler.
+	</div>
+	</p>
+      </div>
+    </section>
+
+    <section class="cta" id="buy">
+      <div class="cta-content">
+        <div class="container">
+          <h2>SmartBox.<br>Get yours!</h2>
+          <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Buy Now</a>
+        </div>
+      </div>
+      <div class="overlay"></div>
+    </section>
+
 
     <section class="features" id="features">
       <div class="container">
@@ -93,70 +157,234 @@
           <hr>
         </div>
         <div class="row">
-          <div class="col-lg-4 my-auto">
-            <div class="device-container">
-              <div class="device-mockup iphone6_plus portrait white">
-                <div class="device">
-                  <div class="screen">
-                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                    <img src="{% static "img/demo-screen-1.jpg" %}" class="img-fluid" alt="">
-                  </div>
-                  <div class="button">
-                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-8 my-auto">
+          <div class="col-lg-12 my-auto">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                   <div class="feature-item">
-                    <i class="icon-screen-smartphone text-primary"></i>
+                    <i class="icon-envelope-open"></i>
                     <h3>Real Time Alerts</h3>
-                    <p class="text-muted">Get notified as soon as your mail arrives</p>
+                    <p class="text-muted">
+		    Gives you a notification when you receive new mail via a push-notification on your phone or via e-mail!  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="feature-item">
+                    <i class="icon-key"></i>
+                    <h3>Hands Free Access</h3>
+                    <p class="text-muted">
+			No need for keys, just conveniently open your postbox via your smartphone - it really could not be simpler and more secure!
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                   <div class="feature-item">
-                    <i class="icon-camera text-primary"></i>
-                    <h3>Hands Free Access</h3>
-                    <p class="text-muted">Get access to your mail at the touch of a button</p>
+                    <i class="icon-graph text-primary"></i>
+                    <h3>Online Statistics</h3>
+                    <p class="text-muted">
+			Get information and statistics on your past mail delivery and collection behaviour on your personal SmartBox website.
+		    Get access to your mail at the touch of a button</p>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="feature-item">
+                    <i class="icon-screen-smartphone text-primary"></i>
+                    <h3>Mobile App</h3>
+                    <p class="text-muted">
+		    Free Mobile app for displaying your SmartBox statistics, setting up and controlling your postbox.
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                   <div class="feature-item">
-                    <i class="icon-present text-primary"></i>
-                    <h3>Free to Use</h3>
-                    <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
+                    <i class="icon-lock text-primary"></i>
+                    <h3>SSL-secured</h3>
+                    <p class="text-muted">
+		    We value privacy and safety - you will be the only person having access to your SmartBox online account and any personal mail delivery information!
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                   <div class="feature-item">
-                    <i class="icon-lock-open text-primary"></i>
-                    <h3>Open Source</h3>
-                    <p class="text-muted">Since this theme is MIT licensed, you can use it commercially!</p>
+                    <i class="icon-energy text-primary"></i>
+                    <h3>Solar Powered</h3>
+                    <p class="text-muted">
+		    Just set up your SmartBox outside and we promise you it won’t stop working due to the solar powered battery.
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="feature-item">
+                    <i class="icon-bulb text-primary"></i>
+                    <h3>Smart Light</h3>
+                    <p class="text-muted">
+			When it is dark outside, a Power LED will turn on to help you collect your mails.
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="feature-item">
+                    <i class="icon-speedometer text-primary"></i>
+                    <h3>Weight Sensing</h3>
+                    <p class="text-muted">
+		    The weight sensor is going to be introduced in our next device: SmartBox II. - it will give you the possibility to find out more about what and how much was delivered
+		    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+    <section class="features" id="about">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>So how does it work?</h2>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 my-auto">
+            <div class="container-fluid">
+              <div class="row" style="font-size:22px;text-align:justify">
+               The letters are inserted into the box via the flap on the top part. A VCNL4010 proximity sensor detects when the flap has been opened and mail thrown in the postbox. It then immediately notifies you that you’ve got new mail. No matter how many letters the postman wants to deliver to you, SmartBox will not fill up your electronic mailbox with spam as many times as the postman has opened the door. It only sends you one notification every time you received a new delivery of letters. 
+	       <br>
+	       <br>
+	       </div>
+	       </div>
+	       </div>
+          <div class="col-lg-9 my-auto">
+            <div class="container-fluid">
+              <div class="row" style="font-size:22px;text-align:justify">
+And what’s behind the pretty cover? 
+We have made it convenient for you to access your mail. There is no need to  always take an extra key with you so that you could open your mailbox to find nothing useful in it. SmartBox can be opened with your mobile phone easily without the need to remember which key opens your letterbox.
+<br>
+<br>
+SmartBox looks like a traditional postbox so that it looks good on your front door, or mounted to your fence. It is very easy to set up your own device as it automatically connects to your Wifi network. Since SmartBox is solar powered, there is no need to find a plug to make it work. It is very easy to fit it on the wall; all the necessary screws and nuts are provided in the box. The device is designed to use as little energy as possible. A little light is provided within the box, but it only lights up when you really need it in the dark to save power.
+This is achieved by the ambient light measuring functionality of the VCNL4010 sensor.
+	<br>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 my-auto">
+                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                    <img src="{% static "img/giffer.gif" %}" class="img-fluid" alt="">
+          </div>
+
+
         </div>
       </div>
     </section>
 
-    <section class="cta">
-      <div class="cta-content">
-        <div class="container">
-          <h2>Stop waiting.<br>Start building.</h2>
-          <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
+
+    <section class="features" id="technical">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>Technical Details</h2>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col-lg-7 my-auto">
+            <div class="container-fluid">
+              <div class="row" style="font-size:22px;text-align:left">
+		<ul>
+			<li>Two VCNL4010 sensors are utilised:</li>
+			<ul><li>one for ambient light sensing</li><li>one for proximity measurement</li></ul>
+			<li>Sensor limitations: max. 20 cm distance and 16000 lux</li>
+			  <li>I2C communication with the processing unit </li>
+		      	  <li>Functions implemented using the ESP8266 board, interfaced through the NodeMCU board </li>
+		      	  <li>Size:  H: 32 cm x W: 22 cm x D: 8 cm </li>
+		      	  <li>Weight: 1.6 kg </li>
+		      	  <li>Door opens with Tower pro SG92R servo motor </li>
+		      	  <li>Lamp: Power saving LED panel </li>
+		      	  <li>Solar charger unit</li>
+		</ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 my-auto">
+            <div class="container-fluid">
+                    <img src="{% static "img/tech.png" %}" class="img-fluid" alt="">
+	    </div>
+          </div>
+
+
         </div>
       </div>
-      <div class="overlay"></div>
     </section>
+
+    <section class="features" id="team">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>Our Team</h2>
+          <hr>
+        </div>
+        <div class="row">
+		<center>
+          <div class="col-lg-12 my-auto">
+            <div class="container-fluid">
+		<div style="font-size:26px">
+Our team consists of three electrical engineers and a computer scientist. By putting our relevant expertise in developing SmartBox, we believe that every aspect of our end product is as high quality as it could be.
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="feature-item">
+                    <img src="{% static "img/karoly.png" %}" class="img-fluid" alt="">
+		    <br><br>
+                    <h3>Karoly Horvath</h3>
+                    <p class="text-muted">
+		    CEO, works with custommers and contractors to provide the best produtc.</div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="feature-item">
+                    <img src="{% static "img/paul.png" %}" class="img-fluid" alt="">
+		    <br><br>
+                    <h3>Paul Streli</h3>
+                    <p class="text-muted">
+			Product Designer and Supervisor
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="feature-item">
+                    <img src="{% static "img/vasko.png" %}" class="img-fluid" alt="">
+		    <br><br>
+                    <h3>Vasil Zlatanov</h3>
+                    <p class="text-muted">
+			IOT Systems and Network Engineer
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="feature-item">
+                    <img src="{% static "img/dan.png" %}" class="img-fluid" alt="">
+		    <br><br>
+                    <h3>Dan Boulby</h3>
+                    <p class="text-muted">
+		    Interface + Back-End Guru
+                  </div>
+                </div>
+              </div>
+
+		</div>
+            </div>
+		</center>
+          </div>
+
+
+
+
+    <section class="features" id="future">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>The Future</h2>
+	  <div style="font-size:22px;text-align:justify">
+Developing a smart postbox gives rise to lots of new opportunities with traditional post services. We are planning to implement several new features in the future editions of the device. By measuring the weight of the letters, we could give more information about the returned content. Little slips could be marked as spam for example. The next level would be to scan the letters for name and address, and classify the unwanted adverts as spam. The user would have online access to the contents of the box. The implementation of advanced locking/unlocking systems could later lead to a solution to home-deliveries, even with the online monitoring of the couriers.
+	</div>
+	</div>
+	</div>
+	</div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
 
     <section class="contact bg-primary" id="contact">
       <div class="container">
@@ -182,6 +410,7 @@
         </ul>
       </div>
     </section>
+
 
     <footer>
       <div class="container">
