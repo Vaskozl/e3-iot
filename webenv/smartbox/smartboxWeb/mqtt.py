@@ -15,10 +15,11 @@ def on_message(client, userdata, msg):
     payload = json.loads(msg.payload)
     serial_id = payload['serial_id']
     print(serial_id)
-    if not MailBox.objects.filter(sensor_id = serial_id):
+    if not MailBox.objects.filter(serial_id = serial_id):
             mailBox = MailBox(serial_id = serial_id)
             mailBox.save()
     mailBox = MailBox.objects.filter(serial_id = serial_id)[0]
+    mailBox.mailcount = payload['mail_count']
     if msg.topic == "esys/VKPD/collection":
         collection = MailCollected(mailBox = mailBox)
         print("Collection")
@@ -27,7 +28,6 @@ def on_message(client, userdata, msg):
         print("Delivery")
         delivery = DeliveredPost(mailBox = mailBox)
         delivery.save()
-
 
 client = mqtt.Client()
 client.on_connect = on_connect

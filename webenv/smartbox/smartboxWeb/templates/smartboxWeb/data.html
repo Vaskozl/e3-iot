@@ -19,9 +19,57 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static "css/new-age.min.css" %}" rel="stylesheet">
+    
+    
+    <script src="{% static "js/highcharts.js" %}"></script>
+    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static "vendor/jquery-easing/jquery.easing.min.js" %}"></script>
+    
+
+    <!-- Custom scripts for this template -->
+    <script src="{% static "js/new-age.min.js" %}"></script>
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>    
+    
+    <script type="text/javascript">
+        function load()
+        {
+            setTimeout("window.open(self.location, '_self');", 1000);
+        }
+    </script>
 </head>
 
+
 <body>
+    <script type="text/javascript">
+    var times = {{ times }};
+    $(function () { 
+        var myChart = Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Delivery Times'
+            },
+            xAxis: {
+                categories: ['0:01 - 1:00', '1:01 - 2:00', '2:01 - 3:00', '3:01 - 4:00', '4:01 - 5:00', '5:01 - 6:00', '6:01 - 7:00', '7:01 - 8:00', '8:01 - 9:00', '9:01 - 10:00', '10:01 - 11:00', '11:01 - 12:00', '12:01 - 13:00', '13:01 - 14:00', '14:01 - 15:00', '15:01 - 16:00', '16:01 - 17:00', '17:01 - 18:00', '18:01 - 19:00', '19:01 - 20:00', '20:01 - 21:00', '21:01 - 22:00', '22:01 - 23:00', '23:01 - 0:00']
+            },
+            yAxis: {
+                title: {
+                    text: 'Number Of deliveries'
+                }
+            },
+            series: [{
+                name: 'Time',
+                data: times 
+            }]
+        });
+    }); 
+    </script>
+    
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
@@ -46,11 +94,22 @@
     <header class="masthead">
       <div class="container h-100">
         <div class="row" style="height: 30%">
+            {% if mailcount != 0 %}
             <div class="col-lg-12 my-auto" align="center">
-                <h1>You have mail to collect</h1>
-            </div>  
+                <h1>You have had {{ mailcount }} deliveries since you last collected your post</h1>
+            </div>
+            {% else %}
+            <div class="col-lg-12 my-auto" align="center">
+                <h1>You have no new mail to collect</h1>
+            </div>
+            {% endif %}
         </div>  
         <div class="row">
+            <div class="col-lg-12 my-auto" align="center">
+                <button type="button" class="btn btn-primary btn-lg" id="door_button">Toggle Smart Box Door</button>
+            </div>  
+        </div>
+        <div class="row" style="height: 10%">
             <div class="col-lg-6 my-auto">
                 <p>Mail last delivered: {{ last_delivery_time }}</p>
             </div>
@@ -58,18 +117,27 @@
                 <p>Mail last collected: {{ last_collection_time }}</p>
             </div>
         </div>
+        <div class="col-lg-12 my-auto" align="center">
+            <div id="container" style="height: 50%"></div>
+        </div>
       </div>
     </header>
     
-    <!-- Bootstrap core JavaScript -->
-    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
-    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="{% static "vendor/jquery-easing/jquery.easing.min.js" %}"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="{% static "js/new-age.min.js" %}"></script>
+    
+    <script>
+        $('#door_button').on('click', function() {
+        $.ajax({
+                url: '/ajax/send_door_request/',
+                data: {
+            },
+                dataType: 'json',
+            }).done(function() {
+                alert('Well done!')
+            });
+        });
+    </script>
+    
 
 </body>
 </html>

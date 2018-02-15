@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from smartboxWeb.models import MailBox, DeliveredPost, MailCollected
+import paho.mqtt.publish as publish
 
 def index(request):
     return render(request, 'smartboxWeb/index.html')
@@ -14,15 +15,24 @@ def get_last_delivery_time(serialID):
     latest_deliveries = DeliveredPost.objects.all().order_by('-delivery_time')
     for delivery in latest_deliveries:
         if(str(delivery.mailBox.serial_id) == serialID):
-            return delivery.delivery_time.strftime("%H:%M %d-%m-%Y")
+            return delivery.delivery_time.strftime("%H:%M:%S %d-%m-%Y")
     return 'No Delivered Mail';
 
 def get_last_collection_time(serialID):
     latest_collections = MailCollected.objects.all().order_by('-collection_time')
     for collection in latest_collections:
-        if(str(collection.serial.serial_id) == serialID):
-            return collection.collection_time.strftime("%H:%M %d-%m-%Y")
+        if(str(collection.mailBox.serial_id) == serialID):
+            return collection.collection_time.strftime("%H:%M:%S %d-%m-%Y")
     return 'No Collected Mail';
+
+def get_delivery_times(serialID):
+    delivery_times = [0] * 24
+    deliveries = DeliveredPost.objects.all()
+    for delivery in deliveries:
+        if str(delivery.mailBox.serial_id == serialID):
+            hour = int(delivery.delivery_time.strftime("%H"))
+            delivery_times[hour] += 1
+    return delivery_times
 
 
 def data(request):
@@ -31,12 +41,18 @@ def data(request):
         request.session['serial_id'] = post
     except (KeyError):
         print("No post")
-    serialID = request.POST['serialID']
+    serialID = request.session['serial_id']
     if not MailBox.objects.filter(serial_id = serialID):
         mailBox = MailBox(serial_id=serialID)
         mailBox.save()
     context = {'serial_id' : serialID,
                 'last_delivery_time': get_last_delivery_time(serialID),
                 'last_collection_time': get_last_collection_time(serialID),
-                'mail_count': MailBox.mailcount()}
+                'mailcount': MailBox.objects.filter(serial_id = serialID)[0].mailcount,
+                'times' : get_delivery_times(serialID)}
     return render(request, 'smartboxWeb/data.html', context)
+
+def send_door_request(request):
+    topic = 'esys/VKPD/' + str(request.session['serial_id'])
+    print(topic)
+    publish.single(topic, hostname="192.168.0.10", port=1883)
