@@ -20,7 +20,7 @@ def wpa_init():
         print('Attempting to authenticate with wireless network...')
         sta_if.connect('EEERover', 'exhibition')
         while not sta_if.isconnected():
-            pass
+            pass # Hang around until we establish a connection
     print('Connected to WiFi:', sta_if.ifconfig())
 
 #
@@ -29,15 +29,15 @@ def wpa_init():
 
 class Mqtt(MQTTClient):
     def __init__(self, broker_address, topic_prefix):
-        MQTTClient.__init__(self, 'ee3-smartbox', '192.168.0.10')
+        MQTTClient.__init__(self, 'ee3-smartbox', '192.168.0.10')      # establish connection with broker
         print("Attempting to connect to broker");
-        self.prefix = topic_prefix
+        self.prefix = topic_prefix                                     # set topic prefix
     def send(self, event, mail_count):
-        if ( event != "delivery" and event != "collection" ):
+        if ( event != "delivery" and event != "collection" ):          # check if event is valid
             print("Invalid event, not publishing")
         else:
             print("Sending message");
-            message = { "mail_count": mail_count, "serial_id": "1742"}
+            message = { "mail_count": mail_count, "serial_id": "1742"} # format JSON payload
             MQTTClient.publish(self, self.prefix+event, ujson.dumps(message))
 
 
