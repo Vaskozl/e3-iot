@@ -27,9 +27,11 @@ def wpa_init():
 # Connect to MQTT broker on the network 
 #
 
+# We make an Mqtt class which wraps MQTTClient to simplify main.py calls
+
 class Mqtt(MQTTClient):
     def __init__(self, broker_address, topic_prefix, serial_num):
-        MQTTClient.__init__(self, 'ee3-smartbox', '192.168.0.10')      # establish connection with broker
+        MQTTClient.__init__(self, 'ee3-smartbox', broker_address)      # establish connection with broker
         print("Attempting to connect to broker");
         self.prefix = topic_prefix                                     # set topic prefix
     def send(self, event, mail_count):
