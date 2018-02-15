@@ -34,7 +34,7 @@ No worries, we are here to help. Introducing SmartBox, the ideal solution to you
 
 ## Technical Details
 * Two VCNL4010 sensors are utilised:
-	*one for ambient light sensing
+	* one for ambient light sensing
 	* one for proximity measurement
 * Sensor limitations: max. 20 cm distance and 16000 lux
 * I2C communication with the processing unit
