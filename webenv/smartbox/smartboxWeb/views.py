@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from smartboxWeb.models import MailBox, DeliveredPost, MailCollected
 import paho.mqtt.publish as publish
+
 
 def index(request):
     return render(request, 'smartboxWeb/index.html')
@@ -27,11 +28,10 @@ def get_last_collection_time(serialID):
 
 def get_delivery_times(serialID):
     delivery_times = [0] * 24
-    deliveries = DeliveredPost.objects.all()
+    deliveries = DeliveredPost.objects.filter(mailBox__serial_id = serialID)
     for delivery in deliveries:
-        if str(delivery.mailBox.serial_id == serialID):
-            hour = int(delivery.delivery_time.strftime("%H"))
-            delivery_times[hour] += 1
+        hour = int(delivery.delivery_time.strftime("%H"))
+        delivery_times[hour] += 1
     return delivery_times
 
 
@@ -56,3 +56,12 @@ def send_door_request(request):
     topic = 'esys/VKPD/' + str(request.session['serial_id'])
     print(topic)
     publish.single(topic, hostname="192.168.0.10", port=1883)
+
+def is_updated(request):
+    last_client_delivery_time = request.GET.get('last_delivery_time', None)
+    last_client_collection_time = request.GET.get('last_collection_time', None)
+    serialID = request.session['serial_id']
+    if (get_last_delivery_time(serialID) > last_client_delivery_time) or \
+            (get_last_collection_time(serialID) > last_client_collection_time):
+        return JsonResponse({'client_is_old': True})
+    return JsonResponse({'client_is_old': False})

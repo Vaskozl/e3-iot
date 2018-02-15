@@ -29,9 +29,9 @@ def on_message(client, userdata, msg):
         delivery = DeliveredPost(mailBox = mailBox)
         delivery.save()
 
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
+#client = mqtt.Client()
+#client.on_connect = on_connect
+#client.on_message = on_message
 
-client.connect("192.168.0.10", 1883, 60)
-client.subscribe([("esys/VKPD/collection", 0), ("esys/VKPD/delivery", 0)])
+#client.connect("192.168.0.10", 1883, 60)
+#client.subscribe([("esys/VKPD/collection", 0), ("esys/VKPD/delivery", 0)])

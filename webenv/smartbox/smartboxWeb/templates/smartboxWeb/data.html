@@ -13,7 +13,9 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>    
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="{% static "device-mockups/device-mockups.min.css" %}">
 
@@ -31,19 +33,35 @@
     <!-- Custom scripts for this template -->
     <script src="{% static "js/new-age.min.js" %}"></script>
     
-    <!-- Bootstrap core JavaScript -->
-    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>    
+
     
-    <script type="text/javascript">
-        function load()
-        {
-            setTimeout("window.open(self.location, '_self');", 1000);
-        }
-    </script>
+   
 </head>
 
-
-<body>
+ <script type="text/javascript">
+     function poll(){
+        var last_delivery_time = '{{ last_delivery_time }}'
+        var last_collection_time = '{{ last_collection_time }}'
+        setInterval(function() {
+            $.ajax({
+                url: "/ajax/is_updated/",
+                data: {
+                  'last_delivery_time': last_delivery_time,
+                  'last_collection_time': last_collection_time
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if(data.client_is_old){
+                        window.location.href=window.location.href;
+                    }
+                    console.log("polling");
+                },
+            })
+        }, 500);
+     }
+</script>
+    
+<body onload="poll()">
     <script type="text/javascript">
     var times = {{ times }};
     $(function () { 
@@ -96,7 +114,7 @@
         <div class="row" style="height: 30%">
             {% if mailcount != 0 %}
             <div class="col-lg-12 my-auto" align="center">
-                <h1>You have had {{ mailcount }} deliveries since you last collected your post</h1>
+                <h1>You have had {{ mailcount }} {% if mailcount == 1 %} delivery {% else %} deliveries {% endif %} since you last collected your post</h1>
             </div>
             {% else %}
             <div class="col-lg-12 my-auto" align="center">
