@@ -19,19 +19,22 @@ def on_message(client, userdata, msg):
             mailBox = MailBox(serial_id = serial_id)
             mailBox.save()
     mailBox = MailBox.objects.filter(serial_id = serial_id)[0]
-    mailBox.mailcount = payload['mail_count']
+    print('Mailcount: ' + str(mailBox.mailcount))
     if msg.topic == "esys/VKPD/collection":
+        mailBox.mailcount = 0
         collection = MailCollected(mailBox = mailBox)
         print("Collection")
         collection.save()
     elif msg.topic == "esys/VKPD/delivery":
         print("Delivery")
+        mailBox.mailcount = payload['mail_count']
         delivery = DeliveredPost(mailBox = mailBox)
         delivery.save()
+    mailBox.save()
 
-#client = mqtt.Client()
-#client.on_connect = on_connect
-#client.on_message = on_message
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
 
-#client.connect("192.168.0.10", 1883, 60)
-#client.subscribe([("esys/VKPD/collection", 0), ("esys/VKPD/delivery", 0)])
+client.connect("192.168.0.10", 1883, 60)
+client.subscribe([("esys/VKPD/collection", 0), ("esys/VKPD/delivery", 0)])
