@@ -1,6 +1,18 @@
 # SmartBox
 
+This GitHub repository contains all the code for the implementation of the EE3 SmartBox project. The Box was demonstrated on 25/02/2018, developed by group VKPD. The embedded software was written in MicroPython, for the NodeMCU board.
+
+Embedded code: main.py, net.py and VCNL4010.py
+main.py: implements the controlling logic of the system as a whole
+net.py: contains relevant MQTT and wireless functionalities
+VCNL4010: contains the class for interfacing with the VCNL4010 infrared proximity sensor
+The rest of the repository contains:
+Makefile: a script created by us to make it easy to upload the embedded files to the NodeMCU board
+webenv and Frontend folders: contain all the necessary files for the marketing and login website.
+
 [Check out our webpage!](http://skozl.com:17318)
+
+# Product 
 
 SmartBox is the modern way to get your old-fashioned paper mail. Never miss your important letters again! Smartbox will let you know immediately when there is new mail!
 
