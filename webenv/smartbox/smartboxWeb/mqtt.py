@@ -10,7 +10,7 @@ from smartboxWeb.models import MailBox, DeliveredPost, MailCollected
 def on_connect(mqtt, obj, flags, rc):
     print("Connected " + str(rc))
 
-
+# On message store event in relavent database and change mailcount accordinly
 def on_message(client, userdata, msg):
     payload = json.loads(msg.payload)
     serial_id = payload['serial_id']

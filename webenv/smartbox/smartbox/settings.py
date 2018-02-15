@@ -70,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'smartbox.wsgi.application'
 
+# Save session variables in cookies
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 # Database
